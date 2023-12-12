@@ -1,0 +1,51 @@
+Slip-24
+
+Q.1)Write a python program to sort the sentence in alphabetical order?
+
+def sort_sentence(sentence):
+    words = sentence.split()
+    sorted_words = sorted(words)
+    sorted_sentence = ' '.join(sorted_words)
+    return sorted_sentence
+
+if __name__ == "__main__":
+    input_sentence = "This is a sample sentence to sort alphabetically."
+
+    sorted_sentence = sort_sentence(input_sentence)
+
+    print("Original Sentence:", input_sentence)
+    print("Sorted Sentence:", sorted_sentence)
+
+Q.2) Write a Python program for the following Crypt arithmetic problems CROSS+ROADS = DANGER
+
+from itertools import permutations
+
+def is_valid_assignment(assignment):
+    cross = assignment['C'] * 10000 + assignment['R'] * 1000 + assignment['O'] * 100 + assignment['S'] * 10 + assignment['S']
+    roads = assignment['R'] * 10000 + assignment['O'] * 1000 + assignment['A'] * 100 + assignment['D'] * 10 + assignment['S']
+    danger = assignment['D'] * 100000 + assignment['A'] * 10000 + assignment['N'] * 1000 + assignment['G'] * 100 + assignment['E'] * 10 + assignment['R']
+
+    return cross + roads == danger
+
+def solve_cryptarithmetic():
+    letters = set('CROSSROADSDANGER')
+    if len(letters) > 10:
+        print("Invalid input: More than 10 unique letters.")
+        return
+
+    digits = range(10)
+    for permutation in permutations(digits, len(letters)):
+        assignment = dict(zip(letters, permutation))
+        if assignment['C'] != 0 and assignment['R'] != 0 and assignment['D'] != 0:
+            if is_valid_assignment(assignment):
+                print("Solution found:")
+                print("  CROSS =", assignment['C'], assignment['R'], assignment['O'], assignment['S'], assignment['S'])
+                print("+ ROADS =", assignment['R'], assignment['O'], assignment['A'], assignment['D'], assignment['S'])
+                print("-------")
+                print(" DANGER =", assignment['D'], assignment['A'], assignment['N'], assignment['G'], assignment['E'], assignment['R'])
+                return
+
+    print("No solution found.")
+
+if __name__ == "__main__":
+    solve_cryptarithmetic()

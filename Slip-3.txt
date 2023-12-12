@@ -1,0 +1,51 @@
+Slip-3
+
+Q.1) Write a python program to remove punctuations from the given string?
+
+import string
+
+def remove_punctuation(input_string):
+    # Obtain the set of punctuation characters
+    punctuation_set = set(string.punctuation)
+
+    # Remove punctuation from the input string
+    result_string = ''.join(char for char in input_string if char not in punctuation_set)
+
+    return result_string
+
+# Example usage
+input_string = "Hello, World! This is an example string with punctuations!!!"
+result = remove_punctuation(input_string)
+
+print("Original String:", input_string)
+print("String without Punctuation:", result)
+
+Q.2) Write a Python program to implement Depth First Search algorithm. Refer the following graph as an Input for the program. [Initial node 2, Goal node=7]
+
+graph = { 
+     '1': ['2', '3','4'], 
+     '2': ['1', '4', '5'], 
+     '3': ['1', '4'], 
+     '4': ['1','2','3'], 
+     '5': ['2', '6','7'], 
+     '6': ['5', '7'],
+     '7': ['4', '5','6']
+} 
+  
+ # DFS traversal function 
+def dfs(graph, start, visited): 
+     if start not in visited: 
+         print(start, end=' ') 
+         visited.add(start) 
+         for neighbor in graph[start]: 
+             dfs(graph, neighbor, visited) 
+  
+ # Main function to initiate DFS traversal 
+def main(): 
+     start_node = '2'  # You can change the starting node here 
+     print("Depth-First Search Traversal:") 
+     visited = set() 
+     dfs(graph, start_node, visited) 
+  
+if __name__ == '__main__': 
+     main()

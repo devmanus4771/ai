@@ -1,0 +1,83 @@
+Slip-4
+
+Q.1)Write a program to implement Hangman game using python.
+Description:
+
+Hangman is a classic word-guessing game. The user should guess the word correctly by entering alphabets of the user choice. The Program will get input as single alphabet from the user and it will matchmaking with the alphabets in the original
+
+import random
+
+def choose_word():
+    return random.choice(["python", "hangman", "programming", "code", "computer", "algorithm"])
+
+def display_word(word, guessed):
+    return ' '.join(letter if letter in guessed else '_' for letter in word)
+
+def hangman():
+    word, guessed, attempts = choose_word(), set(), 6
+
+    print("Welcome to Hangman!")
+
+    while attempts > 0:
+        print(display_word(word, guessed))
+        guess = input("Enter a letter: ").lower()
+
+        if guess.isalpha() and len(guess) == 1:
+            guessed.add(guess)
+
+            if guess not in word:
+                attempts -= 1
+                print(f"Wrong guess! Attempts left: {attempts}")
+            elif all(letter in guessed for letter in word):
+                print(f"Congratulations! You've guessed the word: {word}")
+                break
+        else:
+            print("Please enter a single alphabet.")
+
+    if attempts == 0:
+        print(f"Sorry, you're out of attempts. The word was: {word}")
+
+if __name__ == "__main__":
+    hangman()
+
+Q.2) Write a Python program to implement Breadth First Search algorithm. Refer the following graph as an Input for the program. [Initial node=1,Goal node=8]
+
+from collections import deque 
+  
+ # Define an example graph as an adjacency list 
+graph = { 
+     '1': ['2', '3'], 
+     '2': ['1', '4', '5'], 
+     '3': ['1', '6','7'], 
+     '4': ['2','8'], 
+     '5': ['2', '8'], 
+     '6': ['3', '8'],
+     '7': ['3', '8'],
+     '8': ['4', '5','6','7']
+ } 
+  
+ # BFS traversal function 
+def bfs(graph, start): 
+     visited = set()  # To keep track of visited nodes 
+     queue = deque()  # Create a queue for BFS 
+  
+     visited.add(start) 
+     queue.append(start) 
+  
+     while queue: 
+         node = queue.popleft() 
+         print(node, end=' ') 
+  
+         for neighbor in graph[node]: 
+             if neighbor not in visited: 
+                 visited.add(neighbor) 
+                 queue.append(neighbor) 
+  
+ # Main function to initiate BFS traversal 
+def main(): 
+     start_node = '1'  # You can change the starting node here 
+     print("Breadth-First Search Traversal:") 
+     bfs(graph, start_node) 
+  
+if __name__ == '__main__': 
+     main()

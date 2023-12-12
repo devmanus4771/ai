@@ -1,0 +1,76 @@
+slip-6
+
+Q.1) Write a python program to remove stop words for a given passage from a text file using NLTK2.
+
+
+First install NLTK
+-->pip install nltk
+
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def remove_stop_words(file_path):
+    with open(file_path, 'r') as file:
+        passage = file.read()
+
+    stop_words = set(stopwords.words('english'))
+    tokens = word_tokenize(passage)
+    filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+    filtered_text = ' '.join(filtered_tokens)
+
+    return filtered_text
+
+# Example usage
+file_path = 'path/to/your/textfile.txt'  # Replace with the actual path to your text file
+result_text = remove_stop_words(file_path)
+
+print("Original Passage:")
+with open(file_path, 'r') as file:
+    print(file.read())
+
+print("\nPassage after removing stop words:")
+print(result_text)
+
+Q.2) Write a Python program to implement Breadth First Search algorithm. Refer the following graph as an Input for the program. [Initial node=1,Goal node=8]
+from collections import deque 
+  
+ # Define an example graph as an adjacency list 
+graph = { 
+     '1': ['2', '3','4'], 
+     '2': ['1', '4', '5'], 
+     '3': ['1', '4'], 
+     '4': ['1','2','3'], 
+     '5': ['2', '6','7'], 
+     '6': ['5', '7'],
+     '7': ['4', '5','6']
+ } 
+  
+ # BFS traversal function 
+def bfs(graph, start): 
+     visited = set()  # To keep track of visited nodes 
+     queue = deque()  # Create a queue for BFS 
+  
+     visited.add(start) 
+     queue.append(start) 
+  
+     while queue: 
+         node = queue.popleft() 
+         print(node, end=' ') 
+  
+         for neighbor in graph[node]: 
+             if neighbor not in visited: 
+                 visited.add(neighbor) 
+                 queue.append(neighbor) 
+  
+ # Main function to initiate BFS traversal 
+def main(): 
+     start_node = '1'  # You can change the starting node here 
+     print("Breadth-First Search Traversal:") 
+     bfs(graph, start_node) 
+  
+if __name__ == '__main__': 
+     main()

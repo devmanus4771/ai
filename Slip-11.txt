@@ -1,0 +1,68 @@
+Slip-11
+
+Q.1) Write a python program using mean end analysis algorithmproblem of transforming a string of lowercase letters into another string.
+
+def mean_end_analysis(initial, target):
+    if len(initial) != len(target):
+        print("Strings must have the same length.")
+        return
+
+    operations = []
+
+    for i in range(len(initial)):
+        if initial[i] != target[i]:
+            operations.append(f"Change '{initial[i]}' to '{target[i]}' at position {i + 1}")
+
+    if not operations:
+        print("Strings are already the same.")
+    else:
+        print("Transformation Steps:")
+        for operation in operations:
+            print(operation)
+
+if __name__ == "__main__":
+    initial_string = input("Enter the initial string: ").lower()
+    target_string = input("Enter the target string: ").lower()
+
+    mean_end_analysis(initial_string, target_string)
+
+Q.2) Write a Python program to solve water jug problem. Two jugs with capacity 4 gallon and 3 gallon are given with unlimited water supply respectively. The target is to achieve 2 gallon of water in second jug.
+
+def water_jug_problem(capacity_x, capacity_y, target): 
+     jug_x = 0 
+     jug_y = 0 
+  
+     while jug_x != target and jug_y != target: 
+         print(f"Jug X: {jug_x}L, Jug Y: {jug_y}L") 
+  
+         # Fill jug X if it is empty 
+         if jug_x == 0: 
+             jug_x = capacity_x 
+             print("Fill Jug X") 
+  
+         # Transfer water from jug X to jug Y if jug X is not empty 
+         elif jug_x > 0 and jug_y < capacity_y: 
+             transfer = min(jug_x, capacity_y - jug_y) 
+             jug_x -= transfer 
+             jug_y += transfer 
+             print("Transfer from Jug X to Jug Y") 
+  
+         # Empty jug Y if it is full 
+         elif jug_y == capacity_y: 
+             jug_y = 0 
+             print("Empty Jug Y") 
+  
+     print(f"Jug X: {jug_x}L, Jug Y: {jug_y}L") 
+     print("Solution Found!") 
+  
+ # Main function to initiate the problem 
+def main(): 
+     capacity_x = 4  # Capacity of jug X 
+     capacity_y = 3  # Capacity of jug Y 
+     target = 2     # Amount of water to measure 
+  
+     print("Solving Water Jug Problem:") 
+     water_jug_problem(capacity_x, capacity_y, target) 
+  
+if __name__ == '__main__': 
+     main()

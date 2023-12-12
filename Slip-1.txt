@@ -1,0 +1,60 @@
+#Slip-1
+#Q1. Python program that demonstrates the hill climbing algorithm to find the maximum of a mathematical function. (For example f(x)=-x^2+4x)
+
+
+import random
+
+def hill_climbing(function, initial_value, step_size, iterations):
+    current_value = initial_value
+
+    for _ in range(iterations):
+        neighbors = [current_value - step_size, current_value, current_value + step_size]
+        neighbors = [val for val in neighbors if val >= 0]  # Ensure x is non-negative
+        current_value = max(neighbors, key=function, default=current_value)
+
+    return current_value, function(current_value)
+
+# Define the function
+my_function = lambda x: -x**2 + 4*x
+
+# Set initial parameters
+initial_x = random.uniform(0, 10)
+step_size = 0.1
+iterations = 100
+
+# Run hill climbing algorithm
+result_x, result_value = hill_climbing(my_function, initial_x, step_size, iterations)
+
+# Print results
+print("Maximum found at x =", result_x)
+print("Maximum value =", result_value)
+
+#Q2Write a Python program to implement Depth First Search algorithm. Refer the following graph as an Input for the program. [Initial node=1,Goal node=8]
+graph = {
+    '1': ['2', '3'],
+    '2': ['1', '4', '5'],
+    '3': ['1', '6','7'],
+    '4': ['2','8'],
+    '5': ['2', '8'],
+    '6': ['3', '8'],
+    '7':['3','8'],
+    '8':['4','5','6','7']
+}
+
+# DFS traversal function
+def dfs(graph, start, visited):
+    if start not in visited:
+        print(start, end=' ')
+        visited.add(start)
+        for neighbor in graph[start]:
+            dfs(graph, neighbor, visited)
+
+# Main function to initiate DFS traversal
+def main():
+    start_node = '1'  # You can change the starting node here
+    print("Depth-First Search Traversal:")
+    visited = set()
+    dfs(graph, start_node, visited)
+
+if __name__ == '__main__': 
+    main()

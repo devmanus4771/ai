@@ -1,0 +1,119 @@
+Slip-13 **********
+
+*********Q.1Write a Python program to implement Mini-Max Algorithm.
+
+import math
+
+def evaluate(board):
+    return sum(row.count('X') - row.count('O') for row in board)
+
+def is_terminal(board):
+    return any(' ' not in row for row in board) or evaluate(board) != 0
+
+def get_available_moves(board):
+    return [(i, j) for i in range(3) for j in range(3) if board[i][j] == ' ']
+
+def mini_max(board, depth, maximizing_player):
+    if is_terminal(board):
+        return evaluate(board)
+
+    return max(mini_max(make_move(board, move, 'X'), depth + 1, False) if maximizing_player else mini_max(make_move(board, move, 'O'), depth + 1, True) for move in get_available_moves(board))
+
+def find_best_move(board):
+    return max(get_available_moves(board), key=lambda move: mini_max(make_move(board, move, 'X'), 0, False))
+
+def make_move(board, move, player):
+    i, j = move
+    new_board = [row.copy() for row in board]
+    new_board[i][j] = player
+    return new_board
+
+def print_board(board):
+    for row in board:
+        print(" ".join(cell for cell in row))
+    print()
+
+def play_game():
+    board = [[' ' for _ in range(3)] for _ in range(3)]
+
+    print("Initial Board:")
+    print_board(board)
+
+    for _ in range(4):  # Play four moves for demonstration
+        player_move = tuple(map(int, input("Enter your move (row and column separated by space): ").split()))
+        board = make_move(board, player_move, 'O')
+
+        print("Updated Board after your move:")
+        print_board(board)
+
+        if is_terminal(board):
+            print("Game over!")
+            break
+
+        print("Computer's move:")
+        computer_move = find_best_move(board)
+        board = make_move(board, computer_move, 'X')
+
+        print("Updated Board after computer's move:")
+        print_board(board)
+
+        if is_terminal(board):
+            print("Game over!")
+            break
+if __name__ == "__main__":
+
+Q.2) Write a Python program to simulate 8-Queens problem.
+def print_chessboard(chessboard): 
+     for row in chessboard: 
+         print(" ".join(row)) 
+  
+ # Function to check if it's safe to place a queen at the given position 
+def is_safe(chessboard, row, col, n): 
+     # Check row on the left side 
+     for i in range(col): 
+         if chessboard[row][i] == 'Q': 
+             return False 
+  
+     # Check upper diagonal on the left side 
+     for i, j in zip(range(row, -1, -1), range(col, -1, -1)): 
+         if chessboard[i][j] == 'Q': 
+             return False 
+  
+     # Check lower diagonal on the left side 
+     for i, j in zip(range(row, n, 1), range(col, -1, -1)): 
+         if chessboard[i][j] == 'Q': 
+             return False 
+  
+     return True 
+  
+ # Recursive function to solve the Eight Queens problem 
+def solve_eight_queens(chessboard, col, n): 
+     if col >= n: 
+         return True  # All queens are placed 
+  
+     for i in range(n): 
+         if is_safe(chessboard, i, col, n): 
+             chessboard[i][col] = 'Q'  # Place a queen 
+  
+             # Recur to place the rest of the queens 
+             if solve_eight_queens(chessboard, col + 1, n): 
+                 return True 
+  
+             # If placing a queen doesn't lead to a solution, backtrack 
+             chessboard[i][col] = '.' 
+  
+     return False  # No solution exists 
+  
+ # Main function to solve the Eight Queens problem 
+def main(): 
+     n = 8  # Size of the chessboard (8x8) 
+     chessboard = [['.' for _ in range(n)] for _ in range(n)] 
+  
+     if solve_eight_queens(chessboard, 0, n): 
+         print("Solution to the Eight Queens Problem:") 
+         print_chessboard(chessboard) 
+     else: 
+         print("No solution found.") 
+  
+if __name__ == '__main__': 
+     main()
